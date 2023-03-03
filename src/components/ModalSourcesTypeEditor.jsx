@@ -8,7 +8,7 @@ import FieldSelect from './FieldSelect'
 import FieldDynamicArray from './FieldDynamicArray'
 import FieldArray from './FieldArray'
 import FieldJson from './FieldJson'
-
+import FieldCheckbox from './FieldCheckbox';
 
 class TileJSONSourceEditor extends React.Component {
   static propTypes = {
@@ -186,15 +186,24 @@ class GeoJSONSourceUrlEditor extends React.Component {
   }
 
   render() {
-    return <FieldUrl
-      label={"GeoJSON URL"}
-      fieldSpec={latest.source_geojson.data}
+    return <Block label={"GeoJSON URL"} fieldSpec={latest.source_geojson.data}>
+    <FieldUrl
       value={this.props.source.data}
       onChange={data => this.props.onChange({
         ...this.props.source,
         data: data
       })}
     />
+    <FieldCheckbox
+        label={"generateId"}
+        value={this.props.source.generateId || false}
+        onChange={generateId => this.props.onChange({
+          ...this.props.source,
+          generateId: generateId
+        })}
+      />
+    </Block>
+    
   }
 }
 
@@ -220,6 +229,14 @@ class GeoJSONSourceFieldJsonEditor extends React.Component {
             data,
           })
         }}
+      />
+      <FieldCheckbox
+        label={"generateId"}
+        value={this.props.source.generateId || false}
+        onChange={generateId => this.props.onChange({
+          ...this.props.source,
+          generateId: generateId
+        })}
       />
     </Block>
   }
